@@ -1,0 +1,47 @@
+01) create repoA
+<create dir repoA and open bash (bashA) in it>
+[bashA] git init
+02) repo A: create 1st commit with some files (file A, file B)
+<create and fill files fileA and fileB>
+[bashA] git add .
+[bashA] git commit -m "first commit with some files"
+03) repo A: create branch branch1 from master
+[bashA] git branch branch1
+04) clone the current repo (repo B)
+<open new bash (bashB) somewhere>
+[bashB] git clone <repoA path> <repoB path>
+<in my case both repos are in the same dir, so I opened bashB in>
+<the dir above repoA and my exact command is:>
+<[bashB] git clone repoA repoB>
+<pos bashB to repoB directiry after (cd repoB in my case)>
+05) repo B, branch1: create 2nd commit containing new file (file C)
+[bashB] git checkout branch1
+<create and fill fileC>
+[bashB] git add fileC
+[bashB] git commit -m "second commit with fileC"
+06) repo B: push changes to repo A
+[bashB] git push
+07) repo A, branch1: modify line#1 in file C and commit
+[bashA] git checkout branch1
+<change line#1 of fileC of repoA dir>
+[bashA] git add fileC
+[bashA] git commit -m "fileC changed"
+08) repo B, branch1: modify line#1 in file C and commit
+<change line#1 of fileC of repoB dir>
+[bashB] git add fileC
+[bashB] git commit -m "fileC changed"
+09) repo B, branch1: fetch changes from repo A
+[bashB] git fetch origin
+10) repo B, branch1: merge in repoA's branch1 (resolve conflict)
+[bashB] git merge origin/branch1
+<got conflict blah-blah fileC>
+<resolve conflict. It's simple case, I've just opened fileC and>
+<made final version manually>
+[bashB] git add fileC
+[bashB] git commit -m "merged with origin/branch1"
+11) repo A: add repoB as new remote
+[bashA] git remote add repoB <repoB path>
+<in my case exact command is:>
+<[bashA] git remote add repoB ../repoB>
+12) repo A, branch1: merge in repoB's branch1
+[bashA] git pull repoB branch1
